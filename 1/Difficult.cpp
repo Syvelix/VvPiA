@@ -43,12 +43,12 @@ int main()
     if (lunch_cost == 0)
     {
         cout << "Бесплатно не кормим\n";
-        return 2;
+        return 1;
     }
     else if (lunch_cost < 0)
     {
         cout << "В долг не кормим\n";
-        return 2;
+        return 1;
     }
     cleanup();
 
