@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include <format>
 using std::cout, std::cin, std::cerr, std::flush, std::string, std::format;
 
@@ -36,4 +36,24 @@ int main()
     cout << flush << "\n";
     cout << "How intresting." << endl2();
     return 0;
+}/**/
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+    ios testy(nullptr);
+    testy.copyfmt(cout);
+
+    cout << 1.282828 << endl;
+    cout << fixed << setprecision(2) << 1.282828 << endl;
+    cout << 1.282828 << endl;
+    cout.flush();
+    cout << 1.282828 << endl;
+    cout.copyfmt(testy);
+    cout << 1.282828 << endl;
+    
 }
