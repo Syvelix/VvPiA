@@ -7,10 +7,10 @@
 //Использование модуля, содержащего pow
 #include <cmath>
 //Обращение к некоторым именам из стандартного пространства имён std
-using std::cout, std::cin, std::setprecision, std::string, std::pow;
+using std::cout, std::cin, std::endl, std::fixed, std::setprecision, std::string, std::pow;
 
 //Повторяющееся сообщение об ошибке вынесено в отдельную переменную
-const string FAIL_MESSAGE = "Введённое значение не является числом.";
+const string FAIL_MESSAGE = "Введённое значение не является числом.\n";
 
 //Функция расчёта длины гипотенузы
 double hypotenuse(double a, double b)
@@ -58,8 +58,8 @@ int main()
     //Расчёт длины гипотенузы
     double result = hypotenuse(side_a, side_b);
 
-    //Вывод длины на экран, завершение программы
-    cout  << "Длина гипотенузы равна " << setprecision(2) << result;
+    //Вывод длины на экран с точностью 2 знака после запятой, завершение программы
+    cout  << "Длина гипотенузы равна " << fixed << setprecision(2) << result << endl;
     return 0;
 }
 
