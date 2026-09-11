@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <cmath>
 
-using std::cout, std::cin, std::fixed, std::setprecision, std::endl;
+using std::cout, std::cin, std::fixed, std::setprecision, std::endl, std::abs;
 
 int main()
 {
@@ -15,9 +15,18 @@ int main()
 
     cout << "Введите скорость (м/с)\t";
     cin >> speed;
+    //Абсолютизация скорости (допустимо в физике)
+    speed = abs(speed);
 
     cout << "Введите целое время (с)\t";
     cin >> time;
+
+    //Проверка на отрицательное время
+    if (time < 0)
+    {
+        cout << "Путешествия во времени не поддерживаются этой версией программы" << "\n";
+        return 1;
+    }
 
     // Точное расстояние, возможна унификация
     double distance_dbl{time * speed};
@@ -26,7 +35,7 @@ int main()
 
     //Вывод результатов
     cout << "Расстояние с точностью до тысячных:\t" << fixed << setprecision(3) << distance_dbl << "м" << endl;
-    cout << "Округлённое расстояние:\t" << distance_int << "м" << endl;
+    cout << "Округлённое расстояние:\t" << distance_int << "м" << "\n";
 
     return 0;
 }
