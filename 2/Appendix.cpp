@@ -1,10 +1,18 @@
 #include <iostream>
-#include <iomanip>
+#include <cmath>
 
-using std::cin, std::cout;
-
+using std::cout, std::cin, std::endl;
 int main()
+
+{ 
+double a = 0.1 + 0.2;
+if (abs(a - 0.3) < 0.000001) 
 {
-    float y = static_cast<float>(8.01111111122);
-    cout << y;
+    std::cout << "Равны";
+} 
+else 
+{
+    std::cout << "Не равны";
+}
+cout << endl;
 }
