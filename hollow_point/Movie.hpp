@@ -1,12 +1,20 @@
+#pragma once
+
 #include <iostream>
 //Файл со статическими методами
-#include "Stuff.cpp"
+#include "Stuff.hpp"
 
-using std::string, std::cin, std::cout, std::endl, std::stoul;
+using std::string, std::getline, std::cin, std::cout, std::endl, std::stoul;
 
 class Movie
 {
     public:
+        string name;
+        string genre;
+        string producer;
+        unsigned duration;
+        unsigned age_rate;
+
         //Статический класс для получения ввода
         static Movie movie()
         {
@@ -22,18 +30,18 @@ class Movie
             string temp_str;
 
             cout << "Введите название фильма\t";
-            cin >> name;
+            getline(cin, name);
 
             cout << "Введите жанр\t";
-            cin >> genre;
+            getline(cin, genre);
 
             cout << "Введите имя режиссёра\t";
-            cin >> producer;
+            getline(cin, producer);
 
             while (not temp)
             {
                 cout << "Введите длительность фильма в минутах\t";
-                cin >> temp_str;
+                getline(cin, temp_str);
                 temp = Validator::is_unsigned(temp_str);
             }
             duration = stoul(temp_str);
@@ -43,19 +51,13 @@ class Movie
             while (not temp)
             {
                 cout << "Введите возрастное ограничение (число лет)\t";
-                cin >> temp_str;
+                getline(cin, temp_str);
                 temp = Validator::is_unsigned(temp_str);
             }
             age_rate = stoul(temp_str);
         
             return Movie(name, genre, producer, duration, age_rate);
         }
-
-        string name;
-        string genre;
-        string producer;
-        unsigned duration;
-        unsigned age_rate;
 
         Movie(string m_name, string m_genre, string m_producer, unsigned m_duration, unsigned m_age_rate)
         {
