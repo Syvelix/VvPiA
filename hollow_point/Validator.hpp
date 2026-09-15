@@ -4,12 +4,13 @@
 #include <string>
 #include <format>
 #include <list>
-#include <algorithm>
-using std::ranges::find;
-
 using std::string, std::list, std::endl, std::format, std::stoul, std::stoi, std::invalid_argument, std::cout, std::to_string;
 
 const string ERROR_MSG = "Неверный аргумент";
+
+namespace valid
+{
+
 
 class Validator
 {
@@ -49,7 +50,7 @@ class Validator
         static bool is_bool(string value)
         {
             list<string> example = {"1", "0"};
-            if (find(example, value) != example.end())
+            if (std::ranges::find(example, value) != example.end())
             {
                 return true;
             }
@@ -65,15 +66,4 @@ class Validator
             }
             return falseout(to_string(value));
         }
-};
-
-class Tools
-{
-    public:
-        //Конвертация string в bool (небезопасно, использовать в паре с Validator::is_bool)
-        static bool string_to_bool(string value)
-        {
-            int value_i = stoi(value);
-            return static_cast<bool>(value_i);
-        }
-};
+};}

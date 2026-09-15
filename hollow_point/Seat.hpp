@@ -1,7 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include "Stuff.hpp"
+#include "Tools.hpp"
+
+using toolpack::Tools;
 
 using std::string, std::cout, std::cin, std::getline;
 

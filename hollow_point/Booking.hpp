@@ -2,36 +2,38 @@
 
 #include <iostream>
 #include "Client.hpp"
-#include "Stuff.hpp"
 #include "Session.hpp"
 #include "Seat.hpp"
 #include <ctime>
 #include <format>
-#include <list>
+#include <vector>
 
-using std::string, std::getline, std::cin, std::cout, std::endl, std::stoul;
+using std::string, std::getline, std::cin, std::cout, std::endl, std::stoul, std::vector;
 
+namespace booking
+{
 class Booking
 {
     public:
-        list<int> date;
+        vector<int> date;
 
-        static Booking booking(auto l_client, Session l_session)
+        //Статический класс для получения ввода
+        static Booking booking(int id, Session l_session)
         {
             struct tm datetime;
             Session session = l_session;
-            auto client = l_client;
+            int client_id = id;
             Seat seat = Seat::seat();
-            list<int> date = {datetime.tm_mday, datetime.tm_mon, datetime.tm_year};
+            vector<int> date = {datetime.tm_mday, datetime.tm_mon, datetime.tm_year};
 
-            return Booking(session, seat, client, date);
+            return Booking(session, seat, client_id, date);
         }
 
-        Booking(Session b_session, Seat b_seat, auto b_client, list<int> b_date)
+        Booking(Session b_session, Seat b_seat, int b_client_id, vector<int> b_date)
         {
             Session session = b_session;
             Seat seat = b_seat;
-            auto client = b_client;
+            int client_id = b_client_id;
             date = b_date;
         }
-};
+};}

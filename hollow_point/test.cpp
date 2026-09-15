@@ -1,15 +1,15 @@
 #include "Stuff.hpp"
 #include "Movie.hpp"
 #include "Seat.hpp"
-#include "Session.hpp"
 #include "Client.hpp"
+#include "Session.hpp"
 #include <iostream>
 #include <format>
+#include <filesystem>
 
-using namespace std;
+using std::cout, std::endl, std::format;
 
 int main()
 {
-    Client client = Client::client();
-    client.add_booking(Session::session());
+    
 }

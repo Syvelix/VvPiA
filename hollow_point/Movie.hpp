@@ -1,8 +1,10 @@
 #pragma once
 
 #include <iostream>
-//Файл со статическими методами
-#include "Stuff.hpp"
+//Файл с проверочным классом
+#include "Validator.hpp"
+
+using valid::Validator;
 
 using std::string, std::getline, std::cin, std::cout, std::endl, std::stoul;
 

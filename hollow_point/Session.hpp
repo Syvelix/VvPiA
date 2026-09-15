@@ -1,32 +1,34 @@
 #pragma once
 
 #include <string>
-#include <list>
 #include <format>
 #include "Seat.hpp"
-#include "Stuff.hpp"
+#include <vector>
+#include "Tools.hpp"
 #include "Movie.hpp"
 
-using std::string, std::list, std::cout, std::cin, std::getline, std::format;
+using std::string, std::vector, std::cout, std::cin, std::getline, std::format;
 
 class Session
 {
     public:
 
-        list<unsigned> date;
-        list<unsigned> time;
+        vector<unsigned> date;
+        Movie movie;
+        vector<unsigned> time;
         string hall;
         unsigned price;
-        list<Seat> seats;
+        vector<Seat> seats;
 
-        static Session session()
+        //Статический класс для получения ввода
+        static Session session(Movie movie)
         {
-            list<unsigned> date;
-            list<unsigned> time;
+            vector<unsigned> date;
+            vector<unsigned> time;
             string hall;
             unsigned price;
             unsigned seat_amount;
-            list<Seat> seats;
+            vector<Seat> seats;
 
             bool temp = false;
             string temp_str;
@@ -119,20 +121,14 @@ class Session
                 seats.push_back(Seat::seat());
             }
             
-            return Session(Movie::movie(), date, time, hall, price, seats);
+            return Session(movie, date, time, hall, price, seats);
         }
         
 
         
     
-        Session(Movie s_movie, list<unsigned> s_date, list<unsigned> s_time, string s_hall, unsigned s_price, list<Seat> s_seats)
-        {
-            Movie movie = s_movie;
-            date = s_date;
-            time = s_time;
-            hall = s_hall;
-            price = s_price;
-            seats = s_seats;
-        }
+    Session(const Movie s_movie, const vector<unsigned>& s_date, const vector<unsigned>& s_time, const string& s_hall, unsigned s_price, const vector<Seat>& s_seats): movie(s_movie), date(s_date), time(s_time), hall(s_hall), price(s_price), seats(s_seats)
+    {
+    }
 
 };
