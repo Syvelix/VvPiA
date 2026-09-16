@@ -31,7 +31,7 @@ class Movie
             bool temp{false};
             string temp_str;
 
-            cout << "Введите название фильма\t";
+            cout << "\nВведите название фильма\t";
             getline(cin, name);
 
             cout << "Введите жанр\t";

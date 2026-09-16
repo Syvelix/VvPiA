@@ -1,4 +1,3 @@
-#include "Stuff.hpp"
 #include "Movie.hpp"
 #include "Seat.hpp"
 #include "Client.hpp"

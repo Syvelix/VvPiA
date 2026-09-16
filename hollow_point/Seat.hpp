@@ -1,9 +1,9 @@
 #pragma once
 
-#include <iostream>
-#include "Tools.hpp"
+#include "Validator.hpp"
+using valid::Validator;
 
-using toolpack::Tools;
+#include <iostream>
 
 using std::string, std::cout, std::cin, std::getline;
 
@@ -17,6 +17,7 @@ class Seat
         //Переменные для возврата
         unsigned row;
         unsigned number;
+        //Состояние места, 1 - свободно, 0 - занято
         bool state;
 
         //Служебные переменные
@@ -39,27 +40,18 @@ class Seat
             temp = Validator::is_unsigned(temp_str);
         }
         number = stoul(temp_str);
-        temp = false;
 
-        while (not temp)
-        {
-            cout << "Место свободно? (0 - занято, 1 - свободно)\t";
-            getline(cin, temp_str);
-            temp = Validator::is_bool(temp_str);
-        }
-        state = Tools::string_to_bool(temp_str);
-
-        return Seat(row, number, state);
+        return Seat(row, number);
     }
-
         unsigned row;
         unsigned number;
         bool state;
 
-        Seat(unsigned s_row, unsigned s_number, bool s_state)
+        Seat(unsigned s_row, unsigned s_number)
         {
             row = s_row;
             number = s_number;
-            state = s_state;
+            //По умолчанию место свободно
+            state = 1;
         }
 };

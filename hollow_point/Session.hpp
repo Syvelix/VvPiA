@@ -4,7 +4,6 @@
 #include <format>
 #include "Seat.hpp"
 #include <vector>
-#include "Tools.hpp"
 #include "Movie.hpp"
 
 using std::string, std::vector, std::cout, std::cin, std::getline, std::format;
@@ -123,11 +122,8 @@ class Session
             
             return Session(movie, date, time, hall, price, seats);
         }
-        
-
-        
     
-    Session(const Movie s_movie, const vector<unsigned>& s_date, const vector<unsigned>& s_time, const string& s_hall, unsigned s_price, const vector<Seat>& s_seats): movie(s_movie), date(s_date), time(s_time), hall(s_hall), price(s_price), seats(s_seats)
+    Session(const Movie s_movie, const vector<unsigned>& s_date, const vector<unsigned>& s_time, const string& s_hall, unsigned s_price, const vector<Seat> s_seats): movie(s_movie), date(s_date), time(s_time), hall(s_hall), price(s_price), seats(s_seats)
     {
     }
 

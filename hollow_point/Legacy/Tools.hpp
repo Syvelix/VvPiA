@@ -9,6 +9,7 @@
 using std::variant;
 
 #include "Movie.hpp"
+#include "Booking.hpp"
 
 using seletor_returns = variant<Movie>;
 

@@ -10,30 +10,26 @@
 
 using std::string, std::getline, std::cin, std::cout, std::endl, std::stoul, std::vector;
 
-namespace booking
-{
 class Booking
 {
     public:
         vector<int> date;
 
+        Session session;
+        vector<Seat*> seats;
         //Статический класс для получения ввода
-        static Booking booking(int id, Session l_session)
+        static Booking booking(int id, Session& l_session, vector<Seat*> l_seat)
         {
             struct tm datetime;
-            Session session = l_session;
             int client_id = id;
-            Seat seat = Seat::seat();
             vector<int> date = {datetime.tm_mday, datetime.tm_mon, datetime.tm_year};
 
-            return Booking(session, seat, client_id, date);
+            return Booking(l_session, client_id, date, l_seat);
         }
 
-        Booking(Session b_session, Seat b_seat, int b_client_id, vector<int> b_date)
+        Booking(Session& b_session, int b_client_id, vector<int> b_date, vector<Seat*> b_seats):session(b_session),seats(b_seats)
         {
-            Session session = b_session;
-            Seat seat = b_seat;
             int client_id = b_client_id;
             date = b_date;
         }
-};}
+};
