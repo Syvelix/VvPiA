@@ -81,6 +81,7 @@ bool is_double(string value)
 //Расчёт цены доставки
 double summ(double dist, double weight, bool dilivery_type)
 {
+    //Формула из задания
     double result = 50 + 10 * dist + 20 * weight;
     if (dilivery_type == 0)
     {
