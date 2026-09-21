@@ -83,11 +83,8 @@ double summ(double dist, double weight, bool dilivery_type)
 {
     //Формула из задания
     double result = 50 + 10 * dist + 20 * weight;
-    if (dilivery_type == 0)
-    {
-        return result;
-    }
-    return result * 1.5;
+    return (dilivery_type == 0) ? result : result * 1.5;
+    
 }
 
 int main()
