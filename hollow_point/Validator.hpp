@@ -4,7 +4,7 @@
 #include <string>
 #include <format>
 #include <list>
-using std::string, std::list, std::endl, std::format, std::stoul, std::stoi, std::invalid_argument, std::cout, std::to_string;
+using std::string, std::list, std::endl, std::format, std::stoul, std::stoi, std::invalid_argument, std::cout, std::to_string, std::stoi;
 
 const string ERROR_MSG = "\nНеверный аргумент";
 
@@ -33,6 +33,28 @@ namespace valid
                 try
                 {
                     stoul(value, &pos);
+                }
+                catch (const invalid_argument& e)
+                {
+                    return falseout(value);
+                }
+
+                if (pos != value.size())
+                {
+                    return falseout(value);
+                }
+            
+                return true;
+            }
+
+            //Можно ли привести string к int
+            static bool is_int(string value)
+            {
+
+                size_t pos;
+                try
+                {
+                    stoi(value, &pos);
                 }
                 catch (const invalid_argument& e)
                 {
