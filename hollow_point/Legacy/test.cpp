@@ -6,21 +6,23 @@ using std::cout, std::cin, std::endl, std::format;
 
 int main()
 {
-    unsigned i;
-    cin >> i;
 
-    switch(static_cast<int>(i))
-    {
-        case 1:
-            cout << "Понедельник";
-        case 2:
-            cout << "Вторник";
-        case 3:
-            cout << "Среда";
-        case 4:
-            cout << "Четверг";
-        default:
-            cout << "Не день";
+    char grade;
+
+    switch (grade) 
+    { 
+    case 'A': 
+        cout << "Отлично"; 
+        break; 
+    case 'B': 
+        cout << "Хорошо"; 
+        break; 
+    case 'C': 
+        cout << "Удовлетворительно"; 
+        break; 
+    default: 
+        cout << "Неудовлетворительно"; 
+        break; 
     }
 
     cout << endl;

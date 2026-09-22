@@ -18,6 +18,7 @@ void menu(char choice)
         break;
     case '3':
         cout << "Справка";
+        break;
     case '0':
         cout << "Выход";
         break;
