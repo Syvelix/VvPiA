@@ -22,6 +22,28 @@ namespace valid
 
         public:
             //Можно ли привести string к unsigned
+
+           static bool is_double(string value)
+            {
+
+                size_t pos;
+                try
+                {
+                    stod(value, &pos);
+                }
+                catch (const invalid_argument& e)
+                {
+                    return falseout(value);
+                }
+
+                if (pos != value.size())
+                {
+                    return falseout(value);
+                }
+            
+                return true;
+            };
+
             static bool is_unsigned(string value)
             {
                 if (value[0] == '-')
