@@ -1,13 +1,14 @@
 //Вариант 13
 
 #include <iostream>
+#include <iomanip>
 #include <format>
 #include <string>
 #include <cmath>
 #include <vector>
 #include <algorithm>
 
-using std::cout, std::find, std::stod, std::vector, std::to_string, std::invalid_argument, std::getline, std::endl, std::format, std::cin, std::string, std::stoul, std::pow;
+using std::cout, std::fixed, std::setprecision, std::find, std::stod, std::vector, std::to_string, std::invalid_argument, std::getline, std::endl, std::format, std::cin, std::string, std::stoul, std::pow;
 
 const string ERROR_MSG = "\nНеверный аргумент";
 
@@ -190,7 +191,15 @@ int main()
     }
     double result = get_result(input[0]);
 
-    cout << ((result == -999) ? format("Нет такого пункта: {}", input[0]) : format("Cумма платежа: {}р", round(result*100) / 100));
+    if (result == -999)
+    {
+        cout << format("Нет такого пункта: {}\n", input[0]);
+        return 1;
+    }
+    cout << fixed << setprecision(2);
+    
+    cout << "Cумма платежа: " <<  round(result*100) / 100 << "р";
     cout << "\n";
+    
     return 0;
 }

@@ -20,6 +20,7 @@ void menu(char choice)
         cout << "Справка";
     case '0':
         cout << "Выход";
+        break;
     default:
         cout << format("Нет такого пункта: {}", choice);
         break;
