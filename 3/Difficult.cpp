@@ -59,23 +59,22 @@ bool is_in_range(unsigned value, unsigned min, unsigned max)
 //Можно ли привести string к double
 bool is_double(string value)
 {
-
     size_t pos;
-        try
-            {
-                stod(value, &pos);
-            }
-            catch (const invalid_argument& e)
-            {
-                return falseout(value);
-            }
+    try
+    {
+        stod(value, &pos);
+    }
+    catch (const invalid_argument& e)
+    {
+        return falseout(value);
+    }
 
-            if (pos != value.size())
-            {
-                return falseout(value);
-            }
+    if (pos != value.size())
+    {
+        return falseout(value);
+    }
             
-            return true;
+    return true;
 };
 
 //Расчёт цены доставки
