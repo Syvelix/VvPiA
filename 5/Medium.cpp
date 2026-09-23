@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <cmath>
 
-using std::cout, std::setw, std::pow, std::format, std::invalid_argument, std::getline, std::cin, std::endl, std::stod, std::stoi, std::string;
+using std::cout, std::reverse, std::setw, std::to_string, std::setprecision, std::pow, std::format, std::invalid_argument, std::getline, std::cin, std::endl, std::stod, std::stoi, std::string;
 
 const string WRONG_ARGUMENT = "Неверное значение";
 
@@ -56,7 +56,7 @@ bool is_invalid_for(double start, double finish, double step)
     }
     else
     {
-        if (start > finish)
+        if (start < finish)
         {
             cout << format("Начало отсчёта не может быть меньше его конца при отрицательном шаге ({} < {})\n", start, finish);
             return true;
@@ -65,6 +65,23 @@ bool is_invalid_for(double start, double finish, double step)
     return false;
 }
 
+//Цикл для... цикла
+double loopcycle(double curr, double maxx)
+{
+    double result = curr / static_cast<double>((pow(curr, 2) + 1));
+
+    //Делаю так, чтобы число curr отображало ровно 15 цифр
+    //Хотел через setpersicion, но он обрезает нули
+    //А для красивой таблицы нужен постоянный отступ
+    //Пришлось писать кастыль
+    string formatted_curr = to_string(curr).substr(0, 15);
+    formatted_curr.find('.') != formatted_curr.npos ? formatted_curr : formatted_curr += ".";
+    while (formatted_curr.length() != 15) {formatted_curr += "0";};
+
+    cout << format("x = {}\t|\ty = {}", formatted_curr, result) << endl;
+
+    return (result > maxx) ? result : maxx;
+}
 
 int main()
 {
@@ -75,7 +92,7 @@ int main()
 
     while (not temp)
     {
-        cout << "Введите точку начала отсчёта\t";
+        cout << "Введите точку начала отсчёта (включительно)\t";
         getline(cin, input);
         temp = is_double(input);
     }
@@ -101,22 +118,22 @@ int main()
 
     if (is_invalid_for(start, finish, step)) {return 1;};
 
+    double maxx = 0;
     if (step > 0)
     {
-        for (int curr = start; curr <= finish; curr += step)
+        for (double curr = start; curr <= finish; curr += step)
         {
-            double result; //тут остановился        
+            maxx = loopcycle(curr, maxx);
         }
     }
     else
     {
-       for (int curr = start; curr >= finish; curr += step)
+       for (double curr = start; curr >= finish; curr += step)
         {
-            double root = pow(curr, 1.0/3.0);
-
-            cout << curr << " | " << setw(5) << root << endl;
+            maxx = loopcycle(curr, maxx);
         } 
     }
 
+    cout << format("Точка максимума функции на промежутке [{};{}] равна {}\n", start, finish, maxx);
     return 0;
 }

@@ -104,7 +104,7 @@ int main()
     {
         for (int curr = start; curr <= finish; curr += step)
         {
-            double root = pow(curr, 1.0/3.0);
+            double root = pow(curr, 1/3.0);
 
             cout << curr << " | " << setw(5) << root << endl;
         }
@@ -113,7 +113,7 @@ int main()
     {
        for (int curr = start; curr >= finish; curr += step)
         {
-            double root = pow(curr, 1.0/3.0);
+            double root = pow(curr, 1/3.0);
 
             cout << curr << " | " << setw(5) << root << endl;
         } 
