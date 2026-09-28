@@ -54,8 +54,10 @@ bool is_int(string value)
 }
 
 //Получение строки из вектора интов
-string pretty_arr(vector<int> arr, int size)
+string pretty_arr(vector<int> arr, int size = 0)
 {
+    (size == 0) ? size = sizeof(arr) : size = size;
+    
     string str_arr{"{"};
 
     for (int i = 0; i < size; i++)
@@ -79,6 +81,45 @@ string includes_table(vector<int> numbers, int start = 1, int end = SIZE)
     return result;
 }
 
+/*//Пузырьковая сортировка, писал с примера, чтобы лучше разобраться, не использую
+vector<int> bubble_sort(vector<int> numbers)
+{
+    for (int i = 0; i < numbers.size() - 1; i++)
+    {
+        for (int j = 0; j < numbers.size() - i - 1; j++)
+        {
+            if (numbers[j] > numbers[j+1])
+            {
+                int numj = numbers[j];
+                numbers[j] = numbers[j+1];
+                numbers[j+1] = numj;
+            }
+        }
+    }
+    return numbers;
+}*/
+
+//Пузырьковая сортировка, самопис
+vector<int> bubble_sort(vector<int> numbers)
+{
+    //Для каждого элемента i, начиная с начала списка
+    for (int i = 0; i < numbers.size(); i++)
+    {
+        //Для каждого элемента j, начиная с i + 1 (нет смысла сравнивать с el <= i, они уже отсортированы)
+        for (int j = i + 1; j < numbers.size(); j++)
+        {
+            //Если левый элемент больше правого, то они меняются местами
+            if (numbers[i] > numbers[j])
+            {
+                int numi = numbers[i];
+                numbers[i] = numbers[j];
+                numbers[j] = numi;
+            }
+        }
+    }
+    return numbers;
+}
+
 int main()
 {
     random_device rd;
@@ -92,8 +133,9 @@ int main()
         numbers[i] = dis(gen);
     }
 
+    cout << format("Изначальный массив: {}\n", pretty_arr(numbers));
 
-    cout << format("Массив: {}\n", pretty_arr(numbers, SIZE));
+    cout << format("Результат сортировки пузырьком: {}\n", pretty_arr(bubble_sort(numbers)));
 
     cout << includes_table(numbers, 1, 10);
 

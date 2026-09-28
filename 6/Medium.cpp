@@ -7,7 +7,10 @@ using std::format;
 #include <exception>
 using std::invalid_argument, std::out_of_range;
 #include <algorithm>
-using std::sort;
+using std::sort, std::min_element, std::max_element;
+
+#include <numeric>
+using std::accumulate;
 
 using std::find, std::begin, std::end;
 
@@ -74,9 +77,18 @@ int main()
     {
         numbers[i] = dis(gen);
     }
-    cout << format("Массив: {}\n", pretty_arr(numbers, SIZE));
+    cout << format("Массив: {}\n\n", pretty_arr(numbers, SIZE));
     
     sort(numbers, numbers + SIZE);
+
+    cout << format("Сумма чисел в массиве: {}\n", accumulate(begin(numbers), end(numbers), 0));
+
+    cout << format("Среднее арифмитическое массива: {}\n", accumulate(begin(numbers), end(numbers), 0) / sizeof(numbers));
+
+    int maxel = *max_element(begin(numbers), end(numbers));
+    int minel = *min_element(begin(numbers), end(numbers));
+
+    cout << format("Минимальное значение: {},\tМаксимальное значение: {}\n", minel, maxel);
 
     cout << format("Второй максимум от массива: {}\n\n", numbers[SIZE - 2]);
 
