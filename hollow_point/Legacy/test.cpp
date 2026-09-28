@@ -1,30 +1,16 @@
 #include <iostream>
 #include <format>
 #include <filesystem>
+#include <cmath>
 
-using std::cout, std::cin, std::endl, std::format;
+using std::cout, std::cin, std::endl, std::format, std::fabs;
 
 int main()
 {
 
-    char grade;
-
-    switch (grade) 
-    { 
-    case 'A': 
-        cout << "Отлично"; 
-        break; 
-    case 'B': 
-        cout << "Хорошо"; 
-        break; 
-    case 'C': 
-        cout << "Удовлетворительно"; 
-        break; 
-    default: 
-        cout << "Неудовлетворительно"; 
-        break; 
+    
+    for (double x = 0; fabs(x - 1) > 0.000000001; x += 0.1) 
+    {
+        std::cout << x << std::endl;
     }
-
-    cout << endl;
-    return 0;
 }

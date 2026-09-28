@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <cmath>
 
-using std::cout, std::setw, std::pow, std::format, std::invalid_argument, std::getline, std::cin, std::endl, std::stod, std::stoi, std::string;
+using std::cout, std::setw, std::cbrt, std::format, std::invalid_argument, std::getline, std::cin, std::endl, std::stod, std::stoi, std::string;
 
 const string WRONG_ARGUMENT = "Неверное значение";
 
@@ -102,18 +102,18 @@ int main()
 
     if (step > 0)
     {
-        for (int curr = start; curr <= finish; curr += step)
+        for (double curr = start; curr <= finish; curr += step)
         {
-            double root = pow(curr, 1/3.0);
+            double root = cbrt(curr);
 
             cout << curr << " | " << setw(5) << root << endl;
         }
     }
     else
     {
-       for (int curr = start; curr >= finish; curr += step)
+       for (double curr = start; curr >= finish; curr += step)
         {
-            double root = pow(curr, 1/3.0);
+            double root = cbrt(curr);
 
             cout << curr << " | " << setw(5) << root << endl;
         } 

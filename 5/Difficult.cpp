@@ -87,12 +87,11 @@ int main()
     eps = safedouble("Введите точность для вычисления суммы ряда Лейбница (eps > 0)");
     if (eps <= 0)
     {
-        cout << "T_T\n";
+        cout << "Введён eps <= 0\n";
         return 1;
     }
 
     long double pi = loopcycle(eps) * 4;
-
 
     cout << fixed << setprecision(16);
     cout << "При eps = " <<  eps << ", ";
