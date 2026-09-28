@@ -138,6 +138,6 @@ int main()
     cout << format("Результат сортировки пузырьком: {}\n", pretty_arr(bubble_sort(numbers)));
 
     cout << includes_table(numbers, 1, 10);
-
+    
     return 0;
 }

@@ -1,16 +1,18 @@
 #include <iostream>
-#include <format>
-#include <filesystem>
-#include <cmath>
+#include <random>
 
-using std::cout, std::cin, std::endl, std::format, std::fabs;
+using std::random_device, std::mt19937, std::uniform_int_distribution;
+
 
 int main()
 {
 
-    
-    for (double x = 0; fabs(x - 1) > 0.000000001; x += 0.1) 
-    {
-        std::cout << x << std::endl;
-    }
+    int min = 0;
+    int max = 100;
+
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<>dis(min, max);
+
+    int i = dis(gen);
 }
