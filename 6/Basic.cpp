@@ -10,7 +10,6 @@ using std::find, std::begin, std::end;
 
 const string WRONG_ARGUMENT = "Неверное значение";
 
-const int SIZE = 5;
 
 //Сообщение об ошибке + false в ретёрне
 bool falseout(auto input)
@@ -45,12 +44,28 @@ bool is_int(string value)
 
 int main()
 {
+
+    bool temp = false;
+    string value;
+
+    while (not temp)
+    {
+        cout << "Введите размер списка\t";
+        getline(cin, value);
+        temp = is_int(value);
+        if (temp)
+        {
+            temp = (stoi(value) <= 0 ? falseout(value) : temp);
+        }
+    }
+
+    const int SIZE = stoi(value);
+
     int arr[SIZE];
 
     for (int i = 0; i < SIZE; i++)
     {
-        bool temp = false;
-        string value;
+        temp = false;
         while (not temp)
         {
             cout << format("Введите значение №{}\t", i+1);
