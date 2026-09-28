@@ -83,7 +83,7 @@ int main()
 
     cout << format("Сумма чисел в массиве: {}\n", accumulate(begin(numbers), end(numbers), 0));
 
-    cout << format("Среднее арифмитическое массива: {}\n", accumulate(begin(numbers), end(numbers), 0) / sizeof(numbers));
+    cout << format("Среднее арифмитическое массива: {}\n", accumulate(begin(numbers), end(numbers), 0) / (sizeof(numbers) / static_cast<double>(sizeof(numbers[0]))));
 
     int maxel = *max_element(begin(numbers), end(numbers));
     int minel = *min_element(begin(numbers), end(numbers));
