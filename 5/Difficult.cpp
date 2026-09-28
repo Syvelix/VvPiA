@@ -36,7 +36,6 @@ bool is_long_double(string input)
     {
         return falseout(input);
     }
-    
     return true;
 }
 
