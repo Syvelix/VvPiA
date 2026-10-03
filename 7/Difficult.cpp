@@ -16,7 +16,7 @@ using std::pow;
 const int ROWS = 4;
 const int COLUMNS = 4;
 
-//Рекурсивная функция для вычисления миноров, самопис
+//Рекурсивная функция для вычисления миноров, самопис, есть возможность масштабирования размеров матрицы
 vector<vector<int>> cut_it(vector<vector<int>> to_cut, int row, int column)
 {
     if (row >= to_cut.size())
@@ -53,7 +53,7 @@ vector<vector<int>> cut_it(vector<vector<int>> to_cut, int row, int column)
     return newvector;
 }
 
-//Вычисление определителя
+//Вычисление определителя (работает для матриц размерами не меньше 3x3, остальное по задаче и не нужно)
 int determinant(vector<vector<int>> matrix)
 {
     if (matrix.size() == 3)
