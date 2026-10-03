@@ -7,12 +7,10 @@ using std::random_device, std::mt19937, std::uniform_int_distribution;
 int main()
 {
 
-    int min = 0;
-    int max = 100;
+    int arr[5] = {1, 2, 3, 4, 5};
+for (int i = 0; i <= 5; i++) {
+    std::cout << arr[i];
+arr[i] = 0;
+}
 
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<>dis(min, max);
-
-    int i = dis(gen);
 }
