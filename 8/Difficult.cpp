@@ -7,6 +7,7 @@ using std::u16string, std::string, std::getline;
 #include <exception>
 using std::out_of_range, std::invalid_argument;
 
+//Алфавит
 const string abc{"abcdefghijklmnopqrstuvwxyz"};
 const string ABC{"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
 
@@ -16,28 +17,6 @@ static bool falseout(string value)
 {
     cout << format("{}: {}", ERROR_MSG, value) << endl;
     return false;
-}
-
-string to_ceasar(string input, unsigned step)
-{
-    string ceasered{""};
-
-    for (char& l : input)
-    {
-        if (abc.find(l) != abc.npos)
-        {
-            ceasered += abc[(abc.find(l) + step) % abc.size()];
-        }
-        else if (ABC.find(l) != ABC.npos)
-        {
-            ceasered += ABC[(ABC.find(l) + step) % ABC.size()];
-        }
-        else
-        {
-            ceasered += l;
-        }
-    }
-    return ceasered;
 }
 
 //Можно ли привести string к unsigned
@@ -68,6 +47,30 @@ static bool is_unsigned(string value)
     }
             
     return true;
+}
+
+//Шифровалка
+string to_ceasar(string input, unsigned step)
+{
+    string ceasered{""};
+
+    for (char& l : input)
+    {
+        if (abc.find(l) != abc.npos)
+        {
+            //Проверка существования индекса через остаток от деления
+            ceasered += abc[(abc.find(l) + step) % abc.size()];
+        }
+        else if (ABC.find(l) != ABC.npos)
+        {
+            ceasered += ABC[(ABC.find(l) + step) % ABC.size()];
+        }
+        else
+        {
+            ceasered += l;
+        }
+    }
+    return ceasered;
 }
 
 int main()
