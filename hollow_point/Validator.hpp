@@ -4,7 +4,8 @@
 #include <string>
 #include <format>
 #include <list>
-using std::string, std::list, std::endl, std::format, std::stoul, std::stoi, std::invalid_argument, std::cout, std::to_string, std::stoi;
+#include <exception>
+using std::string, std::list, std::endl, std::format, std::stoul, std::stoi, std::invalid_argument, std::cout, std::to_string, std::stoi, std::out_of_range;
 
 const string ERROR_MSG = "\nНеверный аргумент";
 
@@ -21,8 +22,7 @@ namespace valid
     }
 
         public:
-            //Можно ли привести string к unsigned
-
+            
            static bool is_double(string value)
             {
 
@@ -35,6 +35,10 @@ namespace valid
                 {
                     return falseout(value);
                 }
+                catch(const out_of_range& e)
+                {
+                    return falseout(value);
+                }
 
                 if (pos != value.size())
                 {
@@ -44,6 +48,7 @@ namespace valid
                 return true;
             };
 
+            //Можно ли привести string к unsigned
             static bool is_unsigned(string value)
             {
                 if (value[0] == '-')
@@ -57,6 +62,10 @@ namespace valid
                     stoul(value, &pos);
                 }
                 catch (const invalid_argument& e)
+                {
+                    return falseout(value);
+                }
+                catch(const out_of_range& e)
                 {
                     return falseout(value);
                 }
@@ -79,6 +88,10 @@ namespace valid
                     stoi(value, &pos);
                 }
                 catch (const invalid_argument& e)
+                {
+                    return falseout(value);
+                }
+                catch(const out_of_range& e)
                 {
                     return falseout(value);
                 }

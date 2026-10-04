@@ -1,19 +1,32 @@
 #include <iostream>
 #include <random>
-
-using std::random_device, std::mt19937, std::uniform_int_distribution;
+#include <string>
+#include <bitset>
+using namespace std;
 
 
 int main()
 {
+    string test = "ааб b";
+    u32string newtest;
 
-    int m[3][3] = {0};
-    for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
-m[i][j] = i + j;
-}
+    for (int i = 0; i < test.size(); i++)
+    {
+        bitset<8> bits(test[i]);
+
+        if (bits[7] != 0)
+        {
+            cout << test[i] << test[i+1];
+            i++;
+        }
+        else
+        {
+            cout << test[i];
+        }
+
     }
-    std::cout << m[2][2];
+
+    
 }
 
 
