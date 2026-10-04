@@ -201,4 +201,5 @@ int main()
 
     cout << format("Определитель: {}", determinant(matrvec)) << endl;
 
+    return 0;
 }

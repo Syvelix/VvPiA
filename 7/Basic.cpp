@@ -75,4 +75,6 @@ int main()
     }
 
     cout << format("Сумма элементов второй строки: {}", sum) << endl << endl;
+
+    return 0;
 }
