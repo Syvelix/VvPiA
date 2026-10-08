@@ -47,32 +47,6 @@ double quadratic(double a, double b, double c, double x)
     return a*x*x + b*x + c;
 }
 
-//Можно ли привести string к double
-static bool is_double(string value)
-{
-
-    size_t pos;
-    try
-    {
-        stod(value, &pos);
-    }
-    catch (const invalid_argument& e)
-    {
-        return falseout(value);
-    }
-    catch(const out_of_range& e)
-    {
-        return falseout(value);
-    }
-
-    if (pos != value.size())
-    {
-        return falseout(value);
-    }
-            
-    return true;
-};
-
 int main()
 {
     bool temp = false;
@@ -84,7 +58,7 @@ int main()
         getline(cin, input);
         temp = is_double(input);
     }
-    int a = stod(input);
+    double a = stod(input);
     temp = false;
 
     while (not temp)
@@ -93,7 +67,7 @@ int main()
         getline(cin, input);
         temp = is_double(input);
     }
-    int b = stod(input);
+    double b = stod(input);
     temp = false;
 
     while (not temp)
@@ -102,7 +76,7 @@ int main()
         getline(cin, input);
         temp = is_double(input);
     }
-    int c = stod(input);
+    double c = stod(input);
     temp = false;
 
     while (not temp)
@@ -111,7 +85,7 @@ int main()
         getline(cin, input);
         temp = is_double(input);
     }
-    int x = stod(input);
+    double x = stod(input);
 
     cout << format("Результат: {}\n\n", quadratic(a,b,c,x));
 
