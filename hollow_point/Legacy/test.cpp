@@ -7,26 +7,14 @@ using namespace std;
 
 int main()
 {
-    string test = "ааб b";
-    u32string newtest;
-
-    for (int i = 0; i < test.size(); i++)
+    string s = "AAAABBAAB";
+    string neww(s.size(), ' ');
+    for (int i = 0; i < s.size(); i++)
     {
-        bitset<8> bits(test[i]);
+        neww[i] = s[s.size()-i];
+    }   
 
-        if (bits[7] != 0)
-        {
-            cout << test[i] << test[i+1];
-            i++;
-        }
-        else
-        {
-            cout << test[i];
-        }
-
-    }
-
-    
+    cout << neww;
 }
 
 
