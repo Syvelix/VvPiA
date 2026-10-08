@@ -41,7 +41,7 @@ static bool is_double(string value)
     return true;
 };
 
-
+//Квадратичная функция
 double quadratic(double a, double b, double c, double x)
 {
     return a*x*x + b*x + c;

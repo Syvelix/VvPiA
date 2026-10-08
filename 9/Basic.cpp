@@ -41,6 +41,7 @@ static bool is_int(string value)
     return true;
 }
 
+//Функция проверки чётности
 bool isEven(int n)
 {
     return n % 2 == 0;

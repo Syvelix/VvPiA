@@ -41,6 +41,8 @@ static bool is_double(string value)
     return true;
 };
 
+//Комплексный калькулятор
+//Сделал через void, тк по заданию ничего возвращать не надо, и через него проще
 void complex_calc(double xReal, double xShadow, double yReal, double yShadow, char oper)
 {
     double resReal{0};
@@ -125,18 +127,24 @@ int main()
     double yReal = stod(input);
     temp = false;
 
+    double yShadow{0.0};
     while (not temp)
     {
         cout << "Введите мнимую часть второго числа\t";
         getline(cin, input);
-        if (yReal == 0 && input == "0")
-        {
-            cout << "Знаменатель не может быть равен 0\n";
-            continue;
-        }
         temp = is_double(input);
+        if (temp)
+        {
+            yShadow = stod(input);
+            //Проверка отрицательного знаменателя
+            if (yReal == 0 && yShadow == 0)
+            {
+                cout << "Знаменатель не может быть равен 0\n";
+                temp = false;
+            }
+        }
     }
-    double yShadow = stod(input);
+    
     temp = false;
 
     complex_calc(xReal, xShadow, yReal, yShadow, oper);
