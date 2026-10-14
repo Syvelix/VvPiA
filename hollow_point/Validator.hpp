@@ -16,14 +16,15 @@ namespace valid
     class Validator
     {
         static bool falseout(string value)
-    {
-        cout << format("{}: {}", ERROR_MSG, value) << endl;
-        return false;
-    }
+        {
+            cout << format("{}: {}", ERROR_MSG, value) << endl;
+            return false;
+        }
 
         public:
             
-           static bool is_double(string value)
+            //Можно ли привести string к double
+            static bool is_double(string value)
             {
 
                 size_t pos;
