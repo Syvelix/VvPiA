@@ -7,14 +7,9 @@ using namespace std;
 
 int main()
 {
-    string s = "AAAABBAAB";
-    string neww(s.size(), ' ');
-    for (int i = 0; i < s.size(); i++)
-    {
-        neww[i] = s[s.size()-i];
-    }   
+     int* ptr;
 
-    cout << neww;
+     cout << *ptr;
 }
 
 

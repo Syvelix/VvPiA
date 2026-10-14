@@ -4,7 +4,6 @@
 4/Medium
 4/Difficult
 hollow_point/main
-hollow_point/Legacy/test
 hollow_point/Legacy/test.cpp
 5/Base
 5/Medium
@@ -24,3 +23,7 @@ hollow_point/Legacy/test.cpp
 10/Basic
 10/Medium
 10/Difficult
+11/Basic
+11/Difficult
+11/Medium
+hollow_point/Legacy/test
