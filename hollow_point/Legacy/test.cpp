@@ -7,9 +7,10 @@ using namespace std;
 
 int main()
 {
+     int y;
      int* ptr;
-
-     cout << *ptr;
+     *ptr = 10;
+     cout << ptr;
 }
 
 
