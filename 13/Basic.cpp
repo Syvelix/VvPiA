@@ -75,6 +75,10 @@ int main()
         cout << "Введите новую дату\t";
         getline(cin, input);
         temp = is_int(input);
+        if (temp)
+        {
+            temp = (stoi(input) > 0 <= 31 ? true : [](){cout << "Дата должна быть в пределах от 1 до 31"; return false;}());
+        }
     }
     int newdate = stoi(input);
 
