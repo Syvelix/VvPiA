@@ -7,10 +7,15 @@ using namespace std;
 
 int main()
 {
-     int y;
-     int* ptr;
-     *ptr = 10;
-     cout << ptr;
+     unsigned size{0};
+     cin >> size;
+     if (cin.fail())
+     {
+          return 1;
+     }
+     int* arr = new int[size];
+
+     return 0;
 }
 
 
