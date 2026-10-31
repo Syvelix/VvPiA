@@ -77,7 +77,7 @@ int main()
         temp = is_int(input);
         if (temp)
         {
-            temp = (stoi(input) > 0 <= 31 ? true : [](){cout << "Дата должна быть в пределах от 1 до 31"; return false;}());
+            temp = (0 < stoi(input) and stoi(input) <= 31 ? true : [](){cout << "Дата должна быть в пределах от 1 до 31\n"; return false;}());
         }
     }
     int newdate = stoi(input);
