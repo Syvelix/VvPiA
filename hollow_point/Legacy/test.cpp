@@ -2,18 +2,14 @@
 #include <random>
 #include <string>
 #include <bitset>
+#include <string>
 using namespace std;
 
 
 int main()
 {
-     unsigned size{0};
-     cin >> size;
-     if (cin.fail())
-     {
-          return 1;
-     }
-     int* arr = new int[size];
+     char l = 't';
+     string g = format("{}", l);
 
      return 0;
 }
