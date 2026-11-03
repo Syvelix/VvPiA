@@ -1,203 +1,270 @@
 #include <iostream>
-using std::cin, std::cout, std::endl, std::stod;
 #include <format>
-using std::format;
 #include <string>
-using std::string, std::getline;
-#include <algorithm>
-using std::find, std::distance;
+#include <stdexcept>
+using std::cin, std::cout, std::endl, std::stod, std::format;
+using std::string, std::getline, std::invalid_argument, std::out_of_range;
 
 class Calc
 {
     const string OPERS{"+-/*"};
-    const string allowed{"0123456789-+*/()"};
+    const string allowed{"0123456789.-+*/()"};
+    const string ERROR_MSG{"\nНеверный аргумент"};
     string problem{""};
-    string goodExpr{""};
 
-    public:
-        //Дебаг
-        string getProblem()
+    bool falseout(const string& value) const
+    {
+        cout << format("{}: {}", ERROR_MSG, value) << endl;
+        return false;
+    }
+
+    //Можно ли привести string к double
+    bool is_double(const string& value) const
+    {
+        size_t pos{0};
+        try
         {
-            return problem;
+            stod(value, &pos);
+        }
+        catch (const invalid_argument&)
+        {
+            return falseout(value);
+        }
+        catch (const out_of_range&)
+        {
+            return falseout(value);
         }
 
-        void setProblem()
+        if (pos != value.size())
         {
-            cout << "Введите выражение\t";
-            getline(cin, problem);
+            return falseout(value);
         }
+        return true;
+    }
 
-        double solve()
+    bool isNumCh(char c) const
+    { 
+        return (c >= '0' && c <= '9') || c == '.'; 
+    }
+    bool isOper(char c) const
+    {
+        return OPERS.find(c) != string::npos; 
+    }
+
+    //Считает выражение БЕЗ скобок. Результат кладёт в out.
+    bool calculate(string expr, string& out) const
+    {
+        while (true)
         {
-            spaceKill();
-            string checkstr = symlVal();
-            if (problem == "")
+            //Сначала * или /
+            size_t op = string::npos;
+            for (size_t i = 0; i < expr.size(); i++)
+                if (expr[i] == '*' || expr[i] == '/') 
+                { 
+                    op = i; break; 
+                }
+
+            //Потом бинарное + или -
+            if (op == string::npos)
+                for (size_t i = 1; i < expr.size(); i++)
+                    if ((expr[i] == '+' || expr[i] == '-') and isNumCh(expr[i - 1])) 
+                    {
+                        op = i; 
+                        break; 
+                    }
+
+            if (op == string::npos) break;
+
+            if (op == 0 || !isNumCh(expr[op - 1])) 
             {
-                cout << "Задано пустое выражение\n";
-                return -1;
+                return falseout("Нет левого операнда");
             }
-            if (checkstr != "ёё")
-            {
-                cout << format("Неверный символ \"{}\" в выражении", checkstr);
-            }
-            
-            unbracket();
 
-            return 0;
+            //Левый операнд
+            size_t l = op;
+            while (l > 0 && isNumCh(expr[l - 1]))
+            {
+                l--;
+            }
+            if (l > 0 and (expr[l - 1] == '-' or expr[l - 1] == '+') and (l == 1 || isOper(expr[l - 2]))) 
+            {
+                l--;
+            }
+
+            //Правый операнд
+            size_t r = op + 1;
+            if (r < expr.size() and (expr[r] == '-' or expr[r] == '+')) 
+            {
+                r++;
+            }
+            size_t digitsStart = r;
+            while (r < expr.size() and isNumCh(expr[r]))
+            {
+                r++;
+            }
+            if (r == digitsStart) 
+            {
+                return falseout("Нет правого операнда");
+            }
+
+            string left  = expr.substr(l, op - l);
+            string right = expr.substr(op + 1, r - op - 1);
+            if (!is_double(left) || !is_double(right))
+            {
+                return false;
+            }
+
+            double a = stod(left);
+            double b = stod(right);
+            double res{0};
+            switch (expr[op])
+            {
+                case '+': res = a + b; break;
+                case '-': res = a - b; break;
+                case '*': res = a * b; break;
+                case '/':
+                    if (b == 0) 
+                    {
+                        return falseout("Деление на ноль");
+                    }
+                    res = a / b;
+                    break;
+            }
+            expr.replace(l, r - l, format("{:.12f}", res));
         }
 
+        if (!is_double(expr))
+        {
+            return false;
+        }
+        out = expr;
+        return true;
+    }
+
+    bool unbracket()
+    {
+        while (true)
+        {
+            size_t pos = problem.find(')');
+            if (pos == string::npos)
+            {
+                if (problem.find('(') != string::npos)
+                {
+                    return falseout("В выражении не хватает закрывающей скобки");
+                }
+                return true;
+            }
+            size_t lastgood = problem.rfind('(', pos);
+            if (lastgood == string::npos)
+            {
+                return falseout("В выражении не хватает открывающей скобки");
+            }
+
+            string inner = problem.substr(lastgood + 1, pos - lastgood - 1);
+            if (inner == "") 
+            {
+                return falseout("Пустые скобки");
+            }
+        
+            if (lastgood > 0 and isNumCh(problem[lastgood - 1])) 
+            {
+                return falseout("Нет знака перед (");
+            }
+
+            if (pos + 1 < problem.size() and isNumCh(problem[pos + 1])) 
+            {
+                return falseout("Нет знака после )");
+            }
+
+            string res;
+            if (!calculate(inner, res)) return false;
+            problem.replace(lastgood, pos - lastgood + 1, res);
+        }
+    }
     void spaceKill()
     {
-        string newProblem{""};
+        string newProblem;
         for (char lt : problem)
-        {
-            newProblem += lt != ' ' ? format("{}", lt) : "";
-        }
+            if (lt != ' ') newProblem += lt;
         problem = newProblem;
     }
 
-    string symlVal()
+    bool isRun()
     {
-        for (char lt : problem)
-        {
-           if (find(allowed.begin(), allowed.end(), lt) == allowed.end())
-           {
-                return format("{}", lt);
-           }
-        }
-        return "ёё";
+        return problem != "&";
     }
 
-    void makeExprGood(string expr)
+    //Возвращает первый недопустимый символ если он есть
+    char symlVal()
     {
-        cout << expr << endl;
-        for (size_t i = 0; i < expr.size(); i++)
-        {
-            if (expr.at(i) == '*' or expr.at(i) == '/')
-            {
-                size_t j = i;
-                while (j != 0 && OPERS.find(expr.at(j)) != OPERS.npos)
-                {
-                    j--;
-                }
-                j -= j != 0 ? 1 : 0;
-
-                goodExpr = expr.substr(j, expr.size() - j) + expr.substr(0, j);
-                
-                return makeExprGood(goodExpr.substr(j, goodExpr.size() - 1));
-            }
-        }
-        goodExpr += expr.substr(goodExpr.size(), expr.size() - goodExpr.size());
+        size_t i = problem.find_first_not_of(allowed);
+        return i == string::npos ? '\0' : problem[i];
     }
 
-    string calculate(string goodExpr)
-    {
-        short isFinal = 0;
-        for (char op : OPERS)
-        {
-            isFinal += goodExpr.find(op) == goodExpr.npos ? 1 : 0;
-        }
-        if (isFinal == 4)
-        {
-            return goodExpr;
-        }
+public:
 
-        string num1{"0"};
-        string num2{"0"};
-        char oper{' '};
-        bool first{true};
-        
-        for (size_t i = 0; i < goodExpr.size(); i++)
-        {
-            char lt = goodExpr.at(i);
-            if (OPERS.find(lt) != OPERS.npos and first)
-            {
-                oper = lt;
-                first = not first;
-                continue;
-            }
-            else if (OPERS.find(lt) != OPERS.npos and not first)
-            {
-                double semires{0};
-                double num1d = stod(num1);
-                double num2d = stod(num2);
-
-                switch (oper)
-                {
-                    case '+':
-                        semires = num1d + num2d;
-                        break;
-                    case '-':
-                        semires = num1d - num2d;
-                        break;
-                    case '*':
-                        semires = num1d * num2d;
-                        break;
-                    case '/':
-                        semires = num1d / num2d;
-                        break;
-                }
-                return calculate(format("{}{}", semires, goodExpr.substr(0, i)));
-            }
-
-            if (first)
-            {
-                num1 += lt;
-            }
-            else
-            {
-                num2 += lt;
-            }
-            first = not first;
-        }
+    string getProblem() 
+    { 
+        return problem; 
     }
 
-    void unbracket()
+    void setProblem()
     {
-        if (problem == "BAD")
+        cout << "Введите выражение\t";
+        getline(cin, problem);
+    }
+
+    void killProblem()
+    {
+        problem = "";
+    }
+
+    //true при успехе, результат в result
+    bool solve(double& result, bool& run)
+    {
+        spaceKill();
+        run = isRun();
+        if (not run)
         {
-            cout << "Неверное выражение\n";
-            return;
+            return false;
         }
 
-        for (size_t i = 0; i < problem.size(); i++)
+        if (problem.empty())
         {
-            if (problem.at(i) == '(')
-            {
-                size_t lastgood = i;
-                for (size_t j = lastgood; j < problem.size(); j++)
-                {
-                    lastgood = problem.at(j) == '(' ? j : lastgood;
-                }
-
-                size_t pos = problem.find(')');
-                if (pos == problem.npos)
-                {
-                    problem = "BAD";
-                    return;
-                }
-                size_t moss = pos;
-
-                cout << format("shit {}", moss);
-                makeExprGood(problem.substr(lastgood+1, moss - lastgood + 1));
-                
-                cout << format("Bad: {}\n", problem.substr(lastgood+1, moss - lastgood + 1));
-                cout << format("Good: {}\n", goodExpr);
-                problem.replace(lastgood, pos, format("{}{}", calculate(goodExpr), problem.substr(moss, problem.size() - moss - 1)));
-                cout << calculate(problem.substr(lastgood, problem.size() - moss - 1)) << endl;
-                return unbracket();
-            }
+            cout << "Задано пустое выражение\n";
+            return false;
         }
-        return;
+        if (char bad = symlVal(); bad != '\0')
+        {
+            cout << format("Неверный символ \"{}\" в выражении\n", bad);
+            return false;
+        }
+
+        if (!unbracket()) return false;
+
+        string final;
+        if (!calculate(problem, final)) return false;
+
+        problem = final;
+        result = stod(final);
+        return true;
     }
 };
 
 int main()
 {
-    Calc calc = Calc();
-    calc.setProblem();
-    calc.solve();
-    cout << calc.getProblem();
-
+    Calc calc;
+    bool run = true;
+    while (run)
+    {
+        calc.setProblem();
+        double result{0};
+        if (calc.solve(result, run))
+        {
+            cout << format("Результат: {}", result) << endl;
+        }
+        calc.killProblem();
+    }
+    
     return 0;
 }
