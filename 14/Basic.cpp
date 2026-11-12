@@ -57,10 +57,6 @@ class Date
             this->day = day;
             cout << format("Объект Date создан с параметром {}\n", day);
         }
-       // Date(const Date& other):day(other.day)
-        //{
-          //  cout << format("Объект Date скопирован с параметром {}\n", day);
-        //}
 
         void set(int newday = 0)
         {
