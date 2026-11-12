@@ -69,6 +69,10 @@ class Date
             this->day = other.day;
             cout << format("Объект Date скопирован с параметром {}\n", day);
         }
+        ~Date()
+        {
+            cout << "Объект уничтожен\n";
+        }
 
         void set(int newday = 0)
         {
