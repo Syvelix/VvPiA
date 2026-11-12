@@ -57,6 +57,10 @@ class Date
             this->day = day;
             cout << format("Объект Date создан с параметром {}\n", day);
         }
+        ~Date()
+        {
+            cout << "Объект уничтожен\n";
+        }
 
         void set(int newday = 0)
         {
